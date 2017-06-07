@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="pedidosPessoa/v1/pedidosPessoa/interfaces/contracts/Pessoa"/>
+            <con:binding>
+                <con:name>execute_bind</con:name>
+                <con:namespace>http://xmlns.oracle.com/qlc-apis/pedidosPessoa/Pessoa</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-N3f57fe79.287fe389.0.15c7a8051d0.N7e3a">
+            <con:stage id="_StageId-N3f57fe79.287fe389.0.15c7a8051d0.N7e38" name="TransformarIn">
+                <con:context>
+                    <con1:userNsDecl prefix="ped1" namespace="http://domain.sciensa.com.br/v1/pedidosPessoa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="db" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/db_PROC_BUSCA_PESSOA" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="ped" namespace="http://service.sciensa.com.br/v1/pedidosPessoa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N7dd3</con2:id>
+                        <con1:location>
+                            <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                            <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;db:InputParameters>
+&lt;db:ID>{fn:data($body/ped:PessoaRequest/ped1:id)}&lt;/db:ID>
+&lt;/db:InputParameters></con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N3f57fe79.287fe389.0.15c7a8051d0.N7e39">
+            <con:stage id="_StageId-N3f57fe79.287fe389.0.15c7a8051d0.N7e37" name="TransformarOut">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="request" name="request-N3f57fe79.287fe389.0.15c7a8051d0.N7a7c"></con:pipeline>
+        <con:pipeline type="response" name="response-N3f57fe79.287fe389.0.15c7a8051d0.N7a7b">
+            <con:stage id="_StageId-N3f57fe79.287fe389.0.15c7a8051d0.N7a79" name="EnriquecerRes">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="pessoaRes" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N7aae</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body/*</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f57fe79.287fe389.0.15c7a8051d0.N7a45" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="ped1" namespace="http://domain.sciensa.com.br/v1/pedidosPessoa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="ped" namespace="http://service.sciensa.com.br/v1/pedidosPessoa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con1:assign varName="varTotRow" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N7a44</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">(fn:count($pessoaRes))</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f57fe79.287fe389.0.15c7a8051d0.N7a0d" name="ForEach">
+                <con:context>
+                    <con1:userNsDecl prefix="ped" namespace="http://service.sciensa.com.br/v1/pedidosPessoa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con1:foreach xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N7a0f</con2:id>
+                        <con1:variable>body</con1:variable>
+                        <con1:expression>
+                            <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./*:OutputParameters/*:RowSet/*:Row</con2:xpathText>
+                        </con1:expression>
+                        <con1:index-variable>varIndex</con1:index-variable>
+                        <con1:total-variable>varCount</con1:total-variable>
+                        <con1:actions>
+                            <con1:assign varName="vTotReqId">
+                                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N79da</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($pessoaRes/*:RowSet.Row[$varIndex]/*:Column[@name="PersonID"])</con2:xqueryText>
+                                </con1:expr>
+                            </con1:assign>
+                            <con1:assign varName="varReqPed">
+                                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N79a7</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;ped:PessoaRequest>
+    &lt;ped:id>{fn:data($pessoaRes/*:RowSet/*:Row[$varIndex]/*:Column[@name="PersonID"])}&lt;/ped:id>
+&lt;/ped:PessoaRequest></con2:xqueryText>
+                                </con1:expr>
+                            </con1:assign>
+                            <con1:wsCallout>
+                                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N7973</con2:id>
+                                <con1:service ref="pedidosPessoa/v1/pedidosPessoa/services/pipelines/BuscaPedidoPL" xsi:type="con:PipelineRef"/>
+                                <con1:operation>Consultar</con1:operation>
+                                <con1:request>
+                                    <con1:body wrapped="false">varReqPed</con1:body>
+                                </con1:request>
+                                <con1:response>
+                                    <con1:body wrapped="false">varResPed</con1:body>
+                                </con1:response>
+                                <con1:requestTransform/>
+                                <con1:responseTransform/>
+                            </con1:wsCallout>
+                            <con1:insert varName="varResPed">
+                                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N793f</con2:id>
+                                <con1:location>
+                                    <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./*</con2:xpathText>
+                                </con1:location>
+                                <con1:where>first-child</con1:where>
+                                <con1:expr>
+                                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$varRes</con2:xqueryText>
+                                </con1:expr>
+                            </con1:insert>
+                        </con1:actions>
+                    </con1:foreach>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f57fe79.287fe389.0.15c7a8051d0.N7909" name="Stage3">
+                <con:context/>
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N7908</con2:id>
+                        <con1:location>
+                            <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                            <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                                <con2:resource ref="pedidosPessoa/v1/pedidosPessoa/resources/xqueries/transformar"/>
+                                <con2:param name="pedidoRS">
+                                    <con2:path>$varResPed</con2:path>
+                                </con2:param>
+                                <con2:param name="pessoaRS">
+                                    <con2:path>$pessoaRes</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:shared-variables>
+            <con:variable>pessoaRes</con:variable>
+            <con:variable>varTotRow</con:variable>
+            <con:variable>varIndex</con:variable>
+            <con:variable>varCount</con:variable>
+            <con:variable>varReqPed</con:variable>
+            <con:variable>varResPed</con:variable>
+        </con:shared-variables>
+        <con:template-overrides>
+            <con:action-override id="_ActionId-7f000101.37f6fab4.0.1549c78b5ef.N7f53">
+                <con1:alert xmlns:con1="http://www.bea.com/wli/sb/stages/alert/config">
+                    <con1:destination ref="pedidosPessoa/v1/pedidosPessoa/resources/alert-destinations/pedidosPessoa.TRACE"/>
+                </con1:alert>
+            </con:action-override>
+            <con:action-override id="_ActionId-7f000101.37f6fab4.0.1549c78b5ef.N7ce8">
+                <con1:alert xmlns:con1="http://www.bea.com/wli/sb/stages/alert/config">
+                    <con1:destination ref="pedidosPessoa/v1/pedidosPessoa/resources/alert-destinations/pedidosPessoa.TRACE"/>
+                </con1:alert>
+            </con:action-override>
+            <con:action-override id="_ActionId-7f000101.37f6fab4.0.1549c78b5ef.N7d52">
+                <con1:alert xmlns:con1="http://www.bea.com/wli/sb/stages/alert/config">
+                    <con1:destination ref="pedidosPessoa/v1/pedidosPessoa/resources/alert-destinations/pedidosPessoa.TRACE"/>
+                </con1:alert>
+            </con:action-override>
+            <con:action-override id="_ActionId-7f000101.37f6fab4.0.1549c78b5ef.N7d4f">
+                <con1:alert xmlns:con1="http://www.bea.com/wli/sb/stages/alert/config">
+                    <con1:destination ref="pedidosPessoa/v1/pedidosPessoa/resources/alert-destinations/pedidosPessoa.TRACE"/>
+                </con1:alert>
+            </con:action-override>
+            <con:placeholder-override id="PlaceholderID_7f000101.37f6fab4.0.1549c78b5ef.N7a0a">
+                <con:actions>
+                    <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N3f57fe79.287fe389.0.15c7a8051d0.N7e6c</con2:id>
+                        <con1:service ref="pedidosPessoa/v1/pedidosPessoa/services/business/db_PROC_BUSCA_PESSOA" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>db_PROC_BUSCA_PESSOA</con1:operation>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_7f000101.37f6fab4.0.1549c78b5ef.N793a">
+                <con:actions/>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_7f000101.37f6fab4.0.1549c78b5ef.N796d">
+                <con:pipeline-node name="Pipeline Pair Node1">
+                    <con:request>request-N3f57fe79.287fe389.0.15c7a8051d0.N7e3a</con:request>
+                    <con:response>response-N3f57fe79.287fe389.0.15c7a8051d0.N7e39</con:response>
+                </con:pipeline-node>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_7f000101.37f6fab4.0.1549c78b5ef.N7b79">
+                <con:pipeline-node name="Pipeline Pair Node2">
+                    <con:request>request-N3f57fe79.287fe389.0.15c7a8051d0.N7a7c</con:request>
+                    <con:response>response-N3f57fe79.287fe389.0.15c7a8051d0.N7a7b</con:response>
+                </con:pipeline-node>
+            </con:placeholder-override>
+        </con:template-overrides>
+    </con:router>
+    <con:template ref="templates/v1/resources/soap/SimpleOperationPL"/>
+</con:pipelineEntry>

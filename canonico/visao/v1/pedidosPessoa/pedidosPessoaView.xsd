@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <schema targetNamespace="http://service.sciensa.com.br/v1/pedidosPessoa" 
+    elementFormDefault="qualified" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://service.sciensa.com.br/v1/pedidosPessoa" 
+    xmlns:his="http://domain.sciensa.com.br/v1/pedidosPessoa">
+
+    <import namespace="http://domain.sciensa.com.br/v1/pedidosPessoa" 
+      schemaLocation="../../../modelo/v1/pedidosPessoa/pedidosPessoa.xsd"/>
+
+      <element name="PessoaRequest" type="his:Chave"/>
+      <element name="PessoaResponse" type="his:PessoaList"/>
+</schema>

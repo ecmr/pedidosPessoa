@@ -1,0 +1,24 @@
+<wsdl:definitions name="db_PROC_BUSCA_PESSOA" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/qlc-apis/pedidosPessoa/db_PROC_BUSCA_PESSOA" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/qlc-apis/pedidosPessoa/db_PROC_BUSCA_PESSOA" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/db_PROC_BUSCA_PESSOA" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <plt:partnerLinkType name="db_PROC_BUSCA_PESSOA_plt">
+    <plt:role name="db_PROC_BUSCA_PESSOA_role">
+      <plt:portType name="tns:db_PROC_BUSCA_PESSOA_ptt"/>
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+     <schema xmlns="http://www.w3.org/2001/XMLSchema">
+       <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/db_PROC_BUSCA_PESSOA" schemaLocation="db_PROC_BUSCA_PESSOA_sp.xsd"/>
+     </schema>
+    </wsdl:types>
+    <wsdl:message name="args_in_msg">
+        <wsdl:part name="InputParameters" element="db:InputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="args_out_msg">
+        <wsdl:part name="OutputParameters" element="db:OutputParameters"/>
+    </wsdl:message>
+    <wsdl:portType name="db_PROC_BUSCA_PESSOA_ptt">
+        <wsdl:operation name="db_PROC_BUSCA_PESSOA">
+            <wsdl:input message="tns:args_in_msg"/>
+            <wsdl:output message="tns:args_out_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

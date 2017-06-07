@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://domain.sciensa.com.br/v1/pedidosPessoa"
+        xmlns:tns="http://domain.sciensa.com.br/v1/pedidosPessoa" elementFormDefault="qualified"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <element name="Filtro" type="tns:Chave"/>
+  <complexType name="PessoaList">
+    <sequence>
+      <element name="Pessoa" type="tns:Pessoa"/>
+    </sequence>
+  </complexType>
+  <complexType name="Pessoa">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="nome" type="string"/>
+      <element name="sobrenome" type="string"/>
+      <element name="idade" type="string"/>
+      <element name="pedidos" type="tns:Pedidos" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <complexType name="Chave">
+    <sequence>
+      <element name="id" type="string"/>
+    </sequence>
+  </complexType>
+  
+    <complexType name="Pedidos">
+    <complexContent>
+      <xsd:extension base="tns:Pedido"/>
+    </complexContent>
+  </complexType>
+  <complexType name="Pedido">
+    <sequence>
+      <element name="id" type="string"/>
+      <element name="valor" type="string"/>
+    </sequence>
+  </complexType>
+</schema>

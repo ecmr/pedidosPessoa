@@ -1,0 +1,21 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://domain.sciensa.com.br/v1/pedidosPessoa" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="PedidosPessoaRestPS">RestService</doc>
+   <grammars>
+      <xsd:schema xmlns:tns="http://xmlns.oracle.com/qlc-apis/pedidosPessoa/Pessoa" xmlns:inp1="http://service.sciensa.com.br/v1/pedidosPessoa" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <xsd:import namespace="http://service.sciensa.com.br/v1/pedidosPessoa" schemaLocation="../../../../../canonico/visao/v1/pedidosPessoa/pedidosPessoaView.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/">
+         <method name="GET" soa:wsdlOperation="Consultar">
+            <request soa:paramElement="pns:PessoaRequest" xmlns:pns="http://service.sciensa.com.br/v1/pedidosPessoa">
+               <param name="id" style="query" soa:expression="$msg.pessoaReq/ns0:id" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml" element="cns:PessoaResponse" xmlns:cns="http://service.sciensa.com.br/v1/pedidosPessoa"/>
+               <representation mediaType="application/json" element="cns:PessoaResponse" xmlns:cns="http://service.sciensa.com.br/v1/pedidosPessoa"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

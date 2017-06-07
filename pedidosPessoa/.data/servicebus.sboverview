@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:composite xmlns:ns="http://xmlns.oracle.com/sca/1.0">
+    <ns:reference>
+        <ns:interface src="BusinessService:pedidosPessoa/v1/pedidosPessoa/services/business/db_PROC_BUSCA_PEDIDO"/>
+    </ns:reference>
+    <ns:reference>
+        <ns:interface src="BusinessService:pedidosPessoa/v1/pedidosPessoa/services/business/db_PROC_BUSCA_PESSOA"/>
+    </ns:reference>
+</ns:composite>

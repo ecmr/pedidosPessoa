@@ -1,0 +1,13 @@
+<adapter-config name="db_PROC_BUSCA_PESSOA" adapter="db" wsdlLocation="db_PROC_BUSCA_PESSOA.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="SqlServer" location="eis/DB/QSaudeSP" UIStrongXSD="false"/>
+  <endpoint-interaction portType="db_PROC_BUSCA_PESSOA_ptt" operation="db_PROC_BUSCA_PESSOA">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="DONALD"/>
+      <property name="PackageName" value="dbo"/>
+      <property name="ProcedureName" value="PROC_BUSCA_PESSOA"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>
